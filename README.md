@@ -9,9 +9,17 @@ WIP
 
 WIP
 
-## Resources
+## Credits
 
-WIP
+robulouski
+Logan K. & Theo W. for playing this language during a hackathon :)
+Levin W.
+Stackoverflow
+Python@3.7 documentation
+
+## License
+
+MIT
 
 ## Author
 
