@@ -1,7 +1,4 @@
-"""Email parser in a folder/labels with Gmail currently.
-
-Labels
-"""
+"""Email parser in a folder/labels with Gmail currently."""
 
 from email.parser import HeaderParser
 from imapclient import IMAPClient
@@ -13,6 +10,12 @@ pw = 'no u'
 imap_url = 'your.domain.edu/com/org/whatever'
 
 def auth(user, pw):
+	"""Authentication via IMAPClient.
+
+	:param user: Login username.
+	:param pw: Password.
+	:returns: Authorization to the connection/server.
+	"""
 	server = IMAPClient(imap_url)
 	try:
 		server.login(user, pw)
@@ -22,6 +25,12 @@ def auth(user, pw):
 	return (server)
 
 def auth_imap4_ssl(user, pw, imap_url):
+	"""Authentication via IMAPC_SSL.
+
+	:param user: Login username.
+	:param pw: Password.
+	:returns: Authorization to the connection/server.
+	"""
 	server = imaplib.IMAP4_SSL(imap_url)
 	try:
 		server.login(user, pw)
@@ -31,24 +40,37 @@ def auth_imap4_ssl(user, pw, imap_url):
 	return (server)
 
 def get_body(msg):
+	"""Extract email content."""
+
 	if msg.is_multipart():
 		return get_body(msg.get_payload(0))
 	else:
 		return msg.get_payload(None, True)
 
 def search(key, value):
+	"""Search criterias (list on search_criteria.txt)."""
+
 	server = auth(user, pw)
 	result, data = server.search(None, key,'"{}"'.format(value))
 	return (data)
 
 def get_emails(result_bytes):
+	"""Fetch list of emails."""
+
 	msgs = []
 	for num in result_bytes[0].split():
 		typ, data = con.fetch(num, '(RFC822)')
 		msgs.append(data)
 	return (msgs)
 
-def print_total_emails(mailbox):
+def print_total_emails(mailbox=None):
+	"""Print total emails from an inbox.
+
+	:param mailbox: Folder/label/mailbox to iterate through.
+	"""
+	if mailbox is None:
+		print("Provide with the correct mailbox/folder/label that you want to delete from.")
+		sys.exit(1)
 	server = auth(user, pw)
 	typ, data = server.select('"{}"'.format(mailbox), readonly=True)
 	print(typ, data)
@@ -56,6 +78,11 @@ def print_total_emails(mailbox):
 	print("There are {0} messages in {1}".format(num_msgs, mailbox))
 
 def print_unseen_emails(mailbox=None, search_criteria):
+	"""Print total of unseen or unread emails from an inbox.
+
+	:param mailbox: Folder/label/mailbox to iterate through.
+	:param search_criteria: Delimeters or specifications to search for.
+	"""
 	if search_criteria.find("UNSEEN") is 0:
 		print("search_criteria is 'UNSEEN' while it is setup by default.")
 		sys.exit(1)
@@ -72,6 +99,10 @@ def print_unseen_emails(mailbox=None, search_criteria):
 	print("Search criteria ({0}) with {1} unread messages on your user ({2}).".format(search_criteria, unseen, user))
 
 def nuke_emails(mailbox=None):
+	"""Sends ALL emails from a desired inbox to Trash folder.
+
+	:param mailbox: Folder/label/mailbox to iterate through.
+	"""
 	if mailbox is None:
 		print("Provide with the correct mailbox/folder/label that you want to delete from.")
 		sys.exit(1)
