@@ -59,6 +59,9 @@ def print_unseen_emails(mailbox=None, search_criteria):
 	if search_criteria.find("UNSEEN") is 0:
 		print("search_criteria is 'UNSEEN' while it is setup by default.")
 		sys.exit(1)
+	if mailbox is None:
+		print("Provide with the correct mailbox/folder/label that you want to delete from.")
+		sys.exit(1)
 	server = auth(user, pw)
 	server.select_folder('{}'.format(mailbox), readonly=True)
 	messages = server.search('UNSEEN {}'.format(search_criteria))
