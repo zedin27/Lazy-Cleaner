@@ -1,13 +1,13 @@
 # Lazy-Cleaner
-Cleans your GMail inbox (or folders) by inputting keywords to extract from
+Cleans your GMail, Outlook, etc inbox (or folders) by inputting keywords to extract from
 
 ## Dependencies
 
-WIP
+imapclient
 
-## Tutorial
+## Running
 
-WIP
+Start with `./run.sh`
 
 ## Credits
 
