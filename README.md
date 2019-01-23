@@ -13,9 +13,13 @@ Start with `./run.sh`
 
 robulouski
 Logan K. & Theo W. for playing this language during a hackathon :)
+
 Levin W.
+
 Stackoverflow
+
 Python@3.7 documentation
+
 
 ## License
 
