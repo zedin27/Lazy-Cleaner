@@ -4,7 +4,7 @@ find what you want to delete.
 
 ## Dependencies
 
-imapclient
+* imapclient
 
 ## Running
 
